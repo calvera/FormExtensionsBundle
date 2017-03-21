@@ -71,7 +71,7 @@ class DateRangePickerType extends AbstractType
             'minDate'               => null,
             'maxDate'               => null,
             'dateLimit'             => null,
-            'timeZone'              => null,
+            'timeZone'              => '+00:00',
             'showDropdowns'         => true,
             'showWeekNumbers'       => true,
             'timePicker'            => false,
@@ -173,10 +173,10 @@ class DateRangePickerType extends AbstractType
      */
     public function getParent()
     {
-        return 'text';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 's2a_daterange_picker';
     }
