@@ -155,6 +155,9 @@
 
     {% block s2a_daterange_picker_js_prototype %}
         $field.daterangepicker({
+        {% if not required %}
+            'autoUpdateInput': false,
+        {% endif %}
         {% if startDate is not empty %}
             'startDate':            {{ startDate|e4js }},
         {% endif %}
@@ -184,14 +187,23 @@
             'buttonClasses':        {{ buttonClasses|e4js }},
             'applyClass':           {{ applyClass|e4js }},
             'cancelClass':          {{ cancelClass|e4js }},
-            'format':               {{ format|e4js }},
-            'separator':            {{ separator|e4js }},
             'locale':               {{ locale|e4js }},
             'singleDatePicker':     {{ singleDatePicker|e4js }},
             'parentEl':             {{ parentEl|e4js }}
         }, {{ callback|e4js }});
     {% endblock s2a_daterange_picker_js_prototype %}
     });
+
+    {% if not required %}
+        $('#{{ id }}').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format(picker.locale.format) + ' - ' + picker.endDate.format(picker.locale.format));
+        });
+
+        $('#{{ id }}').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+    {% endif %}
+
 </script>
 {% endspaceless %}
 {% endautoescape %}
