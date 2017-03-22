@@ -33,6 +33,13 @@ class DateRangePickerType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        if ($options['format']) {
+            $options['locale']['format'] = $options['format'];
+            }
+        if ($options['separator']) {
+            $options['locale']['separator'] = $options['separator'];
+            }
+
         $view->vars = array_merge($view->vars, array(
             'startDate'             => $options['startDate'],
             'endDate'               => $options['endDate'],
@@ -51,8 +58,6 @@ class DateRangePickerType extends AbstractType
             'buttonClasses'         => $options['buttonClasses'],
             'applyClass'            => $options['applyClass'],
             'cancelClass'           => $options['cancelClass'],
-            'format'                => $options['format'],
-            'separator'             => $options['separator'],
             'locale'                => $options['locale'],
             'singleDatePicker'      => $options['singleDatePicker'],
             'parentEl'              => $options['parentEl'],
@@ -83,9 +88,11 @@ class DateRangePickerType extends AbstractType
             'buttonClasses'         => array('btn', 'btn-sm'),
             'applyClass'            => 'btn-success',
             'cancelClass'           => 'btn-default',
-            'format'                => 'YYYY-MM-DD',
-            'separator'             => ' - ',
+            'format'                => null,
+            'separator'             => null,
             'locale'                => array(
+                'format'                => 'YYYY-MM-DD',
+                'separator'             => ' - ',
                 'applyLabel'            => $this->translator->trans('s2a_daterange_picker.applyLabel', array(), 'AdmingeneratorFormExtensions'),
                 'cancelLabel'           => $this->translator->trans('s2a_daterange_picker.cancelLabel', array(), 'AdmingeneratorFormExtensions'),
                 'fromLabel'             => $this->translator->trans('s2a_daterange_picker.fromLabel', array(), 'AdmingeneratorFormExtensions'),
@@ -154,9 +161,9 @@ class DateRangePickerType extends AbstractType
         )->setAllowedTypes(
             'cancelClass', array('string')
         )->setAllowedTypes(
-            'format', array('string')
+            'format', array('null', 'string')
         )->setAllowedTypes(
-            'separator', array('string')
+            'separator', array('null', 'string')
         )->setAllowedTypes(
             'locale', array('array')
         )->setAllowedTypes(
