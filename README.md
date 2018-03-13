@@ -61,7 +61,7 @@ For Admingenerator users:
 {% block stylesheets %}
     {{ parent() }}
 
-    {% include 'AdmingeneratorFormExtensionsBundle::stylesheets.html.twig' %}
+    {% include '@AdmingeneratorFormExtensions/stylesheets.html.twig' %}
     {% if form is defined and form is not empty %}
         {{ form_css(form) }}
     {% endif %}
@@ -70,7 +70,7 @@ For Admingenerator users:
 {% block javascripts %}
     {{ parent() }}
 
-    {% include 'AdmingeneratorFormExtensionsBundle::javascripts.html.twig' %}
+    {% include '@AdmingeneratorFormExtensions/javascripts.html.twig' %}
     {% if form is defined and form is not empty %}
         {{ form_js(form) }}
     {% endif %}
@@ -81,7 +81,7 @@ For others:
 
 ```html+django
 {% block stylesheets %}
-    {% include 'AdmingeneratorFormExtensionsBundle::stylesheets.html.twig' %}
+    {% include '@AdmingeneratorFormExtensions/stylesheets.html.twig' %}
     
     {% if form is defined and form is not empty %}
         {{ form_css(form) }}
@@ -89,13 +89,15 @@ For others:
 {% endblock %}
 
 {% block javascripts %}
-    {% include 'AdmingeneratorFormExtensionsBundle::javascripts.html.twig' %}
+    {% include '@AdmingeneratorFormExtensions/javascripts.html.twig' %}
     
     {% if form is defined and form is not empty %}
         {{ form_js(form) }}
     {% endif %}
 {% endblock %}
 ```
+
+Note that the templates above are only usable if you've configured assetic for you project (with the correct filters enabled, `uglifyjs2` and `uglifycss`). This bundle also offers a view without filters and without assetic. Simple append `_assetic_basic` or `assetic_less` to the template name.
 
 ### Configure assetic packages (only if you use base.html.twig template)
 
